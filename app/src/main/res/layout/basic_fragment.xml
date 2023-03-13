@@ -9,6 +9,6 @@
         android:layout_height="wrap_content"
         android:textSize="25sp"
         android:textColor="@color/Orange"
-        android:text="this is the history fragment"/>
+        android:text="this is the basic fragment"/>
 
 </RelativeLayout>

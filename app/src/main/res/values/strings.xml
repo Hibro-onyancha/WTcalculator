@@ -26,4 +26,15 @@
     <string name="zero">0</string>
     <string name="equals">=</string>
     <string name="delete"><![CDATA[<]]></string>
+    <string name="basic">basic</string>
+    <string name="bmi">bmi</string>
+    <string name="scie">scie</string>
+    <string name="code">code</string>
+    <string name="Ac">ac</string>
+    <string name="Divide">/</string>
+    <string name="dot">.</string>
+    <string name="del">del</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>

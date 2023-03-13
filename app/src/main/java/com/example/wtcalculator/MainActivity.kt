@@ -1,135 +1,87 @@
-package com.example.wtcalculator
+package com.example.calcwt
 
-import android.os.Bundle
-import android.view.View
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import android.service.voice.VisibleActivityInfo
+import android.view.View.INVISIBLE
+import android.view.View.VISIBLE
+import androidx.fragment.app.Fragment
+import com.example.calcwt.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
-    var oldNumber = ""
-    var opp = "+"
 
-    private lateinit var mainDisplay: EditText
+    lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        mainDisplay = findViewById(R.id.edtMainDisplay)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
+        //onclick events of basic btn
+        binding.btnBasic.setOnClickListener {
+            replaceFragment(basic_fragment())
+            binding.txtBmi.visibility = INVISIBLE
+            binding.txtCode.visibility = INVISIBLE
+            binding.txtScie.visibility = INVISIBLE
+            binding.txtHistory.visibility = INVISIBLE
+            binding.txtBasic.visibility = VISIBLE
+        }
+        //onclick events of bmi btn
 
-        var results = findViewById<Button>(R.id.btnEquals)
+        binding.btnBmi.setOnClickListener {
+            replaceFragment(bmiFragment())
+            binding.txtBmi.visibility = VISIBLE
+            binding.txtCode.visibility = INVISIBLE
+            binding.txtScie.visibility = INVISIBLE
+            binding.txtHistory.visibility = INVISIBLE
+            binding.txtBasic.visibility = INVISIBLE
 
-        results.setOnClickListener {
+        }
+        //onclick events of scie btn
 
+        binding.btnScie.setOnClickListener {
+            replaceFragment(scie_fragment())
+
+            //BTN SCIENCE VISIBILITY
+            binding.txtBmi.visibility = INVISIBLE
+            binding.txtCode.visibility = INVISIBLE
+            binding.txtScie.visibility = VISIBLE
+            binding.txtHistory.visibility = INVISIBLE
+            binding.txtBasic.visibility = INVISIBLE
 
 
         }
+        //onclick events of code btn
 
-
-
-    }
-
-    fun numberEvent(view: View) {
-        //find view by id numbers
-        var btn0 = findViewById<Button>(R.id.btn0)
-        var btn1 = findViewById<Button>(R.id.btn1)
-        var btn2 = findViewById<Button>(R.id.btn2)
-        var btn3 = findViewById<Button>(R.id.btn3)
-        var btn4 = findViewById<Button>(R.id.btn4)
-        var btn5 = findViewById<Button>(R.id.btn5)
-        var btn6 = findViewById<Button>(R.id.btn6)
-        var btn7 = findViewById<Button>(R.id.btn7)
-        var btn8 = findViewById<Button>(R.id.btn8)
-        var btn9 = findViewById<Button>(R.id.btn9)
-        var btnDot = findViewById<Button>(R.id.btnDot)
-
-
-// displaying values on the edit text
-        var buClick = mainDisplay.text.toString()
-        var btnSelect: Button = view as Button
-        when (btnSelect.id) {
-            btn0.id -> {
-                buClick += 0
-            }
-            btn1.id -> {
-                buClick += 1
-            }
-            btn2.id -> {
-                buClick += 2
-            }
-            btn3.id -> {
-                buClick += 3
-            }
-            btn4.id -> {
-                buClick += 4
-            }
-            btn5.id -> {
-                buClick += 5
-            }
-            btn6.id -> {
-                buClick += 6
-            }
-            btn7.id -> {
-                buClick += 7
-            }
-            btn8.id -> {
-                buClick += 8
-            }
-            btn9.id -> {
-                buClick += 9
-            }
-            btnDot.id -> {
-                buClick += "."
-            }
+        binding.btnCode.setOnClickListener {
+            replaceFragment(code_fragmeent())
+            //BTN CODE VISIBILITY
+            binding.txtBmi.visibility = INVISIBLE
+            binding.txtCode.visibility = VISIBLE
+            binding.txtScie.visibility = INVISIBLE
+            binding.txtHistory.visibility = INVISIBLE
+            binding.txtBasic.visibility = INVISIBLE
 
 
         }
-        mainDisplay.setText(buClick)
-    }
+        //onclick events of history btn
 
-    fun oppEvent(view: View) {
-        //find view of operators
+        binding.btnHistory.setOnClickListener {
+            replaceFragment(history_fragment())
 
-        var btnDivide = findViewById<Button>(R.id.btnDivide)
-        var btnAdd = findViewById<Button>(R.id.btnPlus)
-        var btnMultiply = findViewById<Button>(R.id.btnMultiply)
-        var btnModule = findViewById<Button>(R.id.btnModule)
-        var btnMinus = findViewById<Button>(R.id.btnMinus)
-        var oppDisp = findViewById<TextView>(R.id.answerDisplay)
-
-        var oldNumber = mainDisplay.text.toString()
-
-
-        var btnSelect = view as Button
-        when (btnSelect.id) {
-            btnMultiply.id -> {
-                opp = "*"
-
-                mainDisplay.setText("$oldNumber *")
-
-            }
-            btnDivide.id -> {
-                opp = "/"
-                mainDisplay.setText("$oldNumber /")
-
-            }
-            btnAdd.id -> {
-                opp = "+"
-                mainDisplay.setText("$oldNumber +")
-
-            }
-            btnMinus.id -> {
-                opp = "-"
-                mainDisplay.setText("$oldNumber -")
-
-            }
+            //BTN HISTORY TXT VISIBILITY
+            binding.txtBmi.visibility = INVISIBLE
+            binding.txtCode.visibility = INVISIBLE
+            binding.txtScie.visibility = INVISIBLE
+            binding.txtHistory.visibility = VISIBLE
+            binding.txtBasic.visibility = INVISIBLE
 
         }
     }
-    fun results (){
+
+    private fun replaceFragment(fragment: Fragment){
+        val fragmentManager = supportFragmentManager
+        val fragmentTransaction = fragmentManager.beginTransaction()
+        fragmentTransaction.replace(R.id.fragment_container_view_tag,fragment)
+        fragmentTransaction.commit()
     }
-
-
-
 }
